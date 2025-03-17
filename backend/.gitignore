@@ -1,0 +1,42 @@
+# Python
+*.pyc
+__pycache__/
+venv/
+env/
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+dist/
+build/
+
+# Virtual Environment
+.venv/
+.env
+*.env.local
+
+# Firebase
+keys.json
+firebase.json
+firestore.rules
+firestore.indexes.json
+.serviceAccountKey.json
+
+# UV Project
+.uv/
+uv.lock
+uv-virtualenv/
+
+# Logs & Debugging
+*.log
+debug.log
+nohup.out
+
+# IDE & Editor Files
+.vscode/
+.idea/
+*.iml
+.DS_Store
+
+# System Files
+Thumbs.db
