@@ -1,0 +1,14 @@
+{
+    "type": "service_account",
+    "project_id": "attendance-tracker-950c6",
+    "private_key_id": "f3e99325990bc15a5665d808e4e0b55c07ae3199",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDmPCsqwLI5gBm8\n8XyOAnPuk8dXrev4st32yZn4CSwyGKreWxKAjY0NF7psN6H21/sDuP/+J64IqMtd\nRomVkl2KtgEeBu1XX4vKptPssRBqITndi/7GMkvtRIN0JU7qggIeVLhFrobGF7JS\n9K/zPUf49RycsT82IcKyaHqWMfvOGywe5GXu1hZaEwxz6PVB85Pkw8oXqK0BJXDH\n7+3a7CjZwR0qPmNCRMtgTuxuszXtvc5LBhKo3q1XzxZJyMX3u2g13PpdkybbrPA8\n26uuuDYGYgmwMRxvbU3SBFvqlQ+0Jx9WmILUaMcTVX9olnJXUepQBxbry7yJm65q\nXbq7qYiTAgMBAAECggEACPreI30/llQ47MXYegDTfRc2JmUqDS8LeZrfDq3A6Qqi\n7ihMM50RxtR0Q3tKAxg6ef3cZ5EsTbnTsMWAYUfuWRYvO04W3MUPwpg42i8FI7aR\nt2KZ+H4GuHA8gP+228O1Xxx70XqfVsOe2Mh4F7soqaevICzI+TdeN4TcCdaqP8gm\n6uXUYEfNJj0oZWr1ZmxpUdebUFFM8gHyKuwnYw+UTD/KhKAwr5DJ0tVXjL1XxrCS\nmb6HTrb8aGMHEr8FMLuTmDV2b7vMl7rFzGG7vgwB68qHJjETW1vR1e/YiUwaCL+J\ncVmOkFQgtvwWuYT/E9yquqVsaUmWL6sRX+s/NeCgnQKBgQD7ljI+aGukjITGO2DC\nVYtxrC+cj1FQZso9asQhEKVX7dvcDQZtk5e2xCpIw1+vdMwr7b/Ua8OO/Kcs3nLu\n+daC27+yJJ7kEuE76/Y06ipyuBJ2JLQ12wvm51rmbmfREvvpmvYfvBoK3d2lzrA1\neP5xyPeDAHnq5ETF2vgr19oDHwKBgQDqRhaPiVX0RxLb/M6fYYjKpdmMqnsfUE5l\ns9XbY/oQt6zTkzl20RjNipVnOHcLJrPYlJxqv2ewCXTqF8jAZjlBlAdZ9nbfsyS3\n2xmhL8XMzpMd5ZEkj/TJXysShcb94YZTxchrWiMQwe505/6DsEyiglapbipt4z13\nTvz0i9ygDQKBgEGuxtNQQ7okDY4LdomF9+/nek6vhBUvoOFD/Ix9Yg2AxgO/SsxU\n2ikXMcrpZxPRtHRLj+ePcvDjuWmXcf4+L+jeIkAKG4mD/FW+lvrdn9NvhzJdBseA\ntqzD/hFnBaeqAybMFDHY1Bu+LN3bBloPiq5+P1BuUWYnzmSxdFVN91cVAoGAVWVA\n+gdUppt1u2y2oJA7/apg146ZHLv4J8hazwLtd0SMof7Ldo0XnmzCswJ5Gj58Vhkt\nvxeQIzH/RQlwavmYK1hbKabWhApX+xDJkeDJGDPAmqhAtPQohXLET5cmBws7HLQ+\nrysHFyep1UFvm+8asC4UiuQWYUHw+Nl5CWcl/80CgYEAvZfQNAtbpO/xZlwxgrfn\nxSinEgwiCLAKPDRp+kz+uv49wLc/JIINfzTWENx1dCZIJXTcCdVKrk9Se9Y4p61W\nlCdhKpmJQn+YrRwx85twNWTkjFsVN+38awL35n1F1Tc26RZmHH2IIBnjowPeIv1S\nJsFSD+5g4WNwHNJGBty3H4Q=\n-----END PRIVATE KEY-----\n",
+    "client_email": "firebase-adminsdk-fbsvc@attendance-tracker-950c6.iam.gserviceaccount.com",
+    "client_id": "101937604102412836010",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40attendance-tracker-950c6.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+  }
+  
