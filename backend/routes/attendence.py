@@ -1,8 +1,6 @@
 from middlewares.auth_middleware import token_required
 from flask import Blueprint, request, jsonify
-from models.attendance import Attendance
-
-from models.attendance import Attendance
+from models.attendence import Attendance
 
 attendance_bp = Blueprint("attendance", __name__)
 

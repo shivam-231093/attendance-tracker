@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 from routes.auth import auth_bp
-from routes.attendance import attendance_bp
+from routes.attendence import attendance_bp
 from routes.planner import planner_bp
 from routes.reports import reports_bp
 
