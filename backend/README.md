@@ -37,6 +37,13 @@ It provides **user authentication, attendance management, automatic planner gene
 
 ### 1️⃣ Install Dependencies
 
+1. **This Project is made using uv** - If you have [uv](  https://docs.astral.sh/uv/) then simple run the following command 🔥 fast isn't it.
+
+```bash
+uv run app.py
+``` 
+2. **OhterWise requirements is given** 
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -62,37 +69,64 @@ Firestore is **NoSQL**, so data is structured as **collections & documents**.
 
 Each user has a document with their **UID**.
 
+- Request *Url http://localhost:5000/auth/create-or-update-user*
+- Method *POST*
+- *Header should have 'Authorization: Bearer {token}*
+- Body is given below
 ```json
+
 {
   "uid": "abc123",
   "name": "John Doe",
-  "roll_number": "21CS001",
-  "email": "john@example.com",
-  "branch": "CSE",
-  "year": 2,
-  "semester": 4,
-  "subjects": ["Math", "Physics", "CS"],
-  "tracking_period": {
+  "email": "your@gmail.com",
+  "roll_number":"24",
+  "branch":"CSE",
+  "year":"2028",
+  "semester":"2nd",
+  "subjects":["English","Maths","Hindi"],
+  "attendance_period":{
     "start": "2024-01-01",
     "end": "2024-05-31"
   }
+
+}
+```
+- Response is given below
+```json
+{
+    "message": "User updated successfully",
+    "uid": "uidisreturned"
 }
 ```
 
 ### 2️⃣ Attendance Collection (`attendance/{uid}/dates/`)
 
 Stores **daily attendance records** for each user.
+- Request *Url http://localhost:5000/attendance/mark*
+- Method *POST*
+- *Header should have 'Authorization: Bearer {token}*
+- Body is given below
 
 ```json
 {
-  "date": "2025-03-17",
-  "uid": "abc123",
-  "subject_attendance": {
-    "Math": "Present",
-    "Physics": "Absent",
-    "CS": "No Class"
+    "date": "2025-03-24",
+    "attendance": {
+        "Math": "Present",
+        "Physics": "Absent",
+        "CS": "No Class"
+    }
+}
+```
+
+- Response is given below 
+```json
+{
+  "data": {
+      "CS": "No Class",
+      "Math": "Present",
+      "Physics": "Absent"
   },
-  "updated_at": "2025-03-17T10:00:00Z"
+  "message": "Attendance marked successfully"
 }
 ```
 
