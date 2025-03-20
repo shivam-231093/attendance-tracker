@@ -54,8 +54,6 @@ class Attendance:
         attendance_ref = Attendance.collection.document(uid).collection("dates").stream()
 
         subject_wise = {}
-        total_present = 0
-        total_classes = 0
 
         for doc in attendance_ref:
             data = doc.to_dict()
@@ -66,43 +64,31 @@ class Attendance:
                     subject_wise[subject] = {"present": 0, "total": 0}
 
                 subject_wise[subject]["total"] += 1
-                total_classes += 1
+
 
                 if status == "Present":
                     subject_wise[subject]["present"] += 1
-                    total_present += 1
 
         # Calculate subject-wise percentage
         for subject, values in subject_wise.items():
             values["percentage"] = round((values["present"] / values["total"]) * 100, 2) if values["total"] else 0
 
-        # Calculate overall percentage
-        overall_percentage = round((total_present / total_classes) * 100, 2) if total_classes else 0
 
         # Calculate deficiency (how many more classes are needed to reach 75%)
-        deficiency = {}
         for subject, values in subject_wise.items():
             required_classes = max(0, int(0.75 * values["total"]) - values["present"])
             if required_classes > 0:
-                deficiency[subject] = required_classes
+                subject_wise[subject]["deficiency"] = required_classes
 
         # Store in Firestore
         summary_ref = Attendance.collection.document(uid).collection("summary").document("attendance_report")
         summary_ref.set({
-            "total_present": total_present,
-            "total_classes": total_classes,
-            "percentage": overall_percentage,
             "subject_wise": subject_wise,
-            "deficiency": deficiency,
             "updated_at": datetime.datetime.utcnow()
         }, merge=True)
 
         return {
-            "total_present": total_present,
-            "total_classes": total_classes,
-            "percentage": overall_percentage,
             "subject_wise": subject_wise,
-            "deficiency": deficiency
         }
 
     @staticmethod

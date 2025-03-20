@@ -69,9 +69,9 @@ Firestore is **NoSQL**, so data is structured as **collections & documents**.
 
 Each user has a document with their **UID**.
 
-- Request *Url http://localhost:5000/auth/create-or-update-user*
-- Method *POST*
-- *Header should have 'Authorization: Bearer {token}*
+- Request **Url http://localhost:5000/auth/create-or-update-user**
+- Method **POST**
+- **Header should have 'Authorization: Bearer {token}**
 - Body is given below
 ```json
 
@@ -102,9 +102,9 @@ Each user has a document with their **UID**.
 ### 2️⃣ Attendance Collection (`attendance/{uid}/dates/`)
 
 Stores **daily attendance records** for each user.
-- Request *Url http://localhost:5000/attendance/mark*
-- Method *POST*
-- *Header should have 'Authorization: Bearer {token}*
+- Request **Url http://localhost:5000/attendance/mark**
+- Method **POST**
+- **Header should have 'Authorization: Bearer {token}**
 - Body is given below
 
 ```json
@@ -134,22 +134,37 @@ Stores **daily attendance records** for each user.
 
 Stores **calculated attendance insights**.
 
+- Request **Url http://localhost:5000/attendance/summary**
+- Method **GET**
+- **Header should have 'Authorization: Bearer {token}**
+- **There is no need for body**
+- **response is given below**
 ```json
 {
-  "total_present": 40,
-  "total_classes": 50,
-  "percentage": 80,
-  "subject_wise": {
-    "Math": {"present": 18, "total": 20, "percentage": 90},
-    "Physics": {"present": 12, "total": 20, "percentage": 60}
-  },
-  "deficiency": {
-    "Physics": 2
-  }
+    "subject_wise": {
+        "CS": {
+            "deficiency": 2,
+            "percentage": 0.0,
+            "present": 0,
+            "total": 3
+        },
+        "Math": {
+            "percentage": 100.0,
+            "present": 3,
+            "total": 3
+        },
+        "Physics": {
+            "deficiency": 1,
+            "percentage": 66.67,
+            "present": 2,
+            "total": 3
+        }
+    },
+    "updated_at": "Thu, 20 Mar 2025 06:22:14 GMT"
 }
 ```
 
-### 4️⃣ Planner Collection (`planner/{uid}/`)
+<!-- ### 4️⃣ Planner Collection (`planner/{uid}/`)
 
 Auto-generates **attendance planner** based on user data.
 
@@ -166,7 +181,7 @@ Auto-generates **attendance planner** based on user data.
   },
   "holidays": ["2025-03-25", "2025-04-14"]
 }
-```
+``` -->
 
 ## 🔌 API Endpoints
 
@@ -174,7 +189,7 @@ Auto-generates **attendance planner** based on user data.
 
 | Method | Endpoint      | Description                         |
 | ------ | ------------- | ----------------------------------- |
-| `POST` | `/auth/login` | Google Sign-In                      |
+| `POST` | `/auth/create-or-update-user` | Creates or modifies user                      |
 | `GET`  | `/auth/user`  | Fetch user profile (requires token) |
 
 ### 🟢 Attendance (`routes/attendance.py`)
@@ -188,16 +203,26 @@ Auto-generates **attendance planner** based on user data.
 
 ```json
 {
-  "total_present": 40,
-  "total_classes": 50,
-  "percentage": 80,
-  "subject_wise": {
-    "Math": {"present": 18, "total": 20, "percentage": 90},
-    "Physics": {"present": 12, "total": 20, "percentage": 60}
-  },
-  "deficiency": {
-    "Physics": 2
-  }
+    "subject_wise": {
+        "CS": {
+            "deficiency": 2,
+            "percentage": 0.0,
+            "present": 0,
+            "total": 3
+        },
+        "Math": {
+            "percentage": 100.0,
+            "present": 3,
+            "total": 3
+        },
+        "Physics": {
+            "deficiency": 1,
+            "percentage": 66.67,
+            "present": 2,
+            "total": 3
+        }
+    },
+    "updated_at": "Thu, 20 Mar 2025 06:22:14 GMT"
 }
 ```
 
