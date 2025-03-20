@@ -61,7 +61,150 @@ pip install -r requirements.txt
 python app.py
 ```
 
+
 ## 🔥 Database Schema (Firestore)
+
+Firestore is **NoSQL**, so data is structured as **collections & documents**.
+
+### 1️⃣ Users Collection (`users/{uid}`)
+
+Each user has a document with their **UID**.
+
+#### Fields:
+- `uid` (string) – Unique identifier for the user.
+- `name` (string) – Full name.
+- `email` (string) – User's email.
+- `roll_number` (string) – Roll number.
+- `branch` (string) – Department/Branch.
+- `year` (string) – Graduation year.
+- `semester` (string) – Current semester.
+- `subjects` (array) – List of subjects.
+- `attendance_period` (object) – Start and end date of the attendance period.
+
+---
+
+### 2️⃣ Attendance Collection (`attendance/{uid}/dates/{date}`)
+
+Stores **daily attendance records** for each user.
+
+#### Fields:
+- `date` (string) – Date of attendance.
+- `attendance` (object) – Key-value pairs of subjects and their attendance status (e.g., Present, Absent, No Class).
+
+---
+
+### 3️⃣ Attendance Summary (`attendance/{uid}/summary/attendance_report`)
+
+Stores **calculated attendance insights**.
+
+#### Fields:
+- `subject_wise` (object) – Contains attendance stats for each subject.
+  - `percentage` (float) – Attendance percentage.
+  - `present` (integer) – Number of attended classes.
+  - `total` (integer) – Total classes held.
+  - `deficiency` (integer, optional) – Number of classes needed to reach 75%.
+- `updated_at` (timestamp) – Last updated timestamp.
+
+---
+
+## 🚀 API Endpoints
+
+### 1️⃣ Create or Update User
+
+- **Endpoint:** `POST /auth/create-or-update-user`
+- **Headers:**  
+  - `Authorization: Bearer {token}`
+- **Body:**
+  ```json
+  {
+    "uid": "abc123",
+    "name": "John Doe",
+    "email": "your@gmail.com",
+    "roll_number": "24",
+    "branch": "CSE",
+    "year": "2028",
+    "semester": "2nd",
+    "subjects": ["English", "Maths", "Hindi"],
+    "attendance_period": {
+      "start": "2024-01-01",
+      "end": "2024-05-31"
+    }
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "message": "User updated successfully",
+    "uid": "uidisreturned"
+  }
+  ```
+
+---
+
+### 2️⃣ Mark Attendance
+
+- **Endpoint:** `POST /attendance/mark`
+- **Headers:**  
+  - `Authorization: Bearer {token}`
+- **Body:**
+  ```json
+  {
+    "date": "2025-03-24",
+    "attendance": {
+      "Math": "Present",
+      "Physics": "Absent",
+      "CS": "No Class"
+    }
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "data": {
+      "CS": "No Class",
+      "Math": "Present",
+      "Physics": "Absent"
+    },
+    "message": "Attendance marked successfully"
+  }
+  ```
+
+---
+
+### 3️⃣ Get Attendance Summary
+
+- **Endpoint:** `GET /attendance/summary`
+- **Headers:**  
+  - `Authorization: Bearer {token}`
+- **Response:**
+  ```json
+  {
+    "subject_wise": {
+      "CS": {
+        "deficiency": 2,
+        "percentage": 0.0,
+        "present": 0,
+        "total": 3
+      },
+      "Math": {
+        "percentage": 100.0,
+        "present": 3,
+        "total": 3
+      },
+      "Physics": {
+        "deficiency": 1,
+        "percentage": 66.67,
+        "present": 2,
+        "total": 3
+      }
+    },
+    "updated_at": "Thu, 20 Mar 2025 06:22:14 GMT",
+  }
+  ```
+
+
+
+<!-- ## 🔥 Database Schema (Firestore)
 
 Firestore is **NoSQL**, so data is structured as **collections & documents**.
 
@@ -162,7 +305,7 @@ Stores **calculated attendance insights**.
     },
     "updated_at": "Thu, 20 Mar 2025 06:22:14 GMT"
 }
-```
+``` -->
 
 <!-- ### 4️⃣ Planner Collection (`planner/{uid}/`)
 
