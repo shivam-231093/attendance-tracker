@@ -37,7 +37,7 @@ It provides **user authentication, attendance management, automatic planner gene
 
 ### 1️⃣ Install Dependencies
 
-1. **This Project is made using uv** - If you have [uv](  https://docs.astral.sh/uv/) then simple run the following command 🔥 fast isn't it.
+1. **This project uses [uv](  https://docs.astral.sh/uv/) – If you have uv, simply run:** 
 
 ```bash
 uv run app.py
@@ -52,7 +52,7 @@ pip install -r requirements.txt
 
 1. **Create a Firebase Project** ([https://console.firebase.google.com/](https://console.firebase.google.com/))
 2. **Enable Firestore & Authentication**
-3. \*\*Download \*\***`serviceAccountKey.json`** and place it in `/backend/`
+3. \*\*Download \*\***`serviceAccountKey.json`** and copy its contents and place it in .env `FIREBASE_KEYS = '{COPIED JSON}'`
 4. **Update ********************************************`firebase.py`******************************************** with Firestore initialization**
 
 ### 3️⃣ Run the Server
@@ -104,6 +104,35 @@ Stores **calculated attendance insights**.
   - `total` (integer) – Total classes held.
   - `deficiency` (integer, optional) – Number of classes needed to reach 75%.
 - `updated_at` (timestamp) – Last updated timestamp.
+
+---
+
+### 3️⃣ Planners (`planners/{uid}/`)
+
+Stores **Planner and shedule with TimeTable**.
+
+#### Fields:
+- `branch` (string) – Contains branch name
+- `created_at` (timestamp) – stores creation date.
+- `holidays` (array) – List of holidays are stored.
+- `schedule` (map) – stores the schedule.
+- `subjects` (array) – stores the subjects choosen by user.
+- `uid` (string) – stores the user id or uid.
+
+---
+
+### 3️⃣ TimeTables (`timetable/{branch_year}/`)
+
+Stores **Stores the timetable branchwise and yearwise**.
+
+#### Fields:
+- `timetable` (object) – Contains timetable
+  - `Monday` (array) – monday schedule
+  - `Tuesday` (array) – Tuesday schedule.
+  - `Wednesday` (array) – Wednesday schedule.
+  - `Thursday` (array) – Thursday schedule.
+  - `Friday` (array) – Friday schedule..
+  - `Saturday` (array) - Saturday schedule.
 
 ---
 
@@ -202,129 +231,112 @@ Stores **calculated attendance insights**.
   }
   ```
 
+---
 
+### 4️⃣ Generate Planner
 
-<!-- ## 🔥 Database Schema (Firestore)
-
-Firestore is **NoSQL**, so data is structured as **collections & documents**.
-
-### 1️⃣ Users Collection (`users/`)
-
-Each user has a document with their **UID**.
-
-- Request **Url http://localhost:5000/auth/create-or-update-user**
-- Method **POST**
-- **Header should have 'Authorization: Bearer {token}**
-- Body is given below
-```json
-
-{
-  "uid": "abc123",
-  "name": "John Doe",
-  "email": "your@gmail.com",
-  "roll_number":"24",
-  "branch":"CSE",
-  "year":"2028",
-  "semester":"2nd",
-  "subjects":["English","Maths","Hindi"],
-  "attendance_period":{
-    "start": "2024-01-01",
-    "end": "2024-05-31"
-  }
-
-}
-```
-- Response is given below
-```json
-{
-    "message": "User updated successfully",
-    "uid": "uidisreturned"
-}
-```
-
-### 2️⃣ Attendance Collection (`attendance/{uid}/dates/`)
-
-Stores **daily attendance records** for each user.
-- Request **Url http://localhost:5000/attendance/mark**
-- Method **POST**
-- **Header should have 'Authorization: Bearer {token}**
-- Body is given below
-
-```json
-{
-    "date": "2025-03-24",
-    "attendance": {
-        "Math": "Present",
-        "Physics": "Absent",
-        "CS": "No Class"
+- **Endpoint:** `Post /planner/generate-planner`
+- **Headers:**  
+  - `Authorization: Bearer {token}`
+- **Response:**
+  ```json
+  {
+    "message": "Planner created successfully",
+    "planner": {
+        "branch": "CSE",
+        "created_at": "Sun, 23 Mar 2025 17:42:55 GMT",
+        "holidays": [],
+        "schedule": {
+            "2024-01-01": [
+                "M2",
+                "Physics"
+            ],
+            "2024-01-02": [
+                "Mech",
+                "M2"
+            ],
+            "2024-01-03": [
+                "Physics",
+                "Mech"
+            ],
+            "2024-01-04": [
+                "M2",
+                "Physics"
+            ]
+            
+            
+        "semester": "2nd",
+        "subjects": [
+            "Physics",
+            "M2",
+            "Mech"
+        ],
+        "uid": "XlbThzrdClgmR2zJOE6ywtOmbmj2",
+        "year": "1"
     }
-}
-```
+  }
+  }
+  ```
+  ---
+### 5️⃣ Get Planner 
 
-- Response is given below 
-```json
-{
-  "data": {
-      "CS": "No Class",
-      "Math": "Present",
-      "Physics": "Absent"
-  },
-  "message": "Attendance marked successfully"
-}
-```
-
-### 3️⃣ Attendance Summary (`attendance/{uid}/summary/attendance_report`)
-
-Stores **calculated attendance insights**.
-
-- Request **Url http://localhost:5000/attendance/summary**
-- Method **GET**
-- **Header should have 'Authorization: Bearer {token}**
-- **There is no need for body**
-- **response is given below**
-```json
-{
-    "subject_wise": {
-        "CS": {
-            "deficiency": 2,
-            "percentage": 0.0,
-            "present": 0,
-            "total": 3
-        },
-        "Math": {
-            "percentage": 100.0,
-            "present": 3,
-            "total": 3
-        },
-        "Physics": {
-            "deficiency": 1,
-            "percentage": 66.67,
-            "present": 2,
-            "total": 3
-        }
+- **Endpoint:** `GET /planner/get-planner`
+- **Headers:**  
+  - `Authorization: Bearer {token}`
+- **Response:**
+  ```json
+  {
+    "branch": "CSE",
+    "created_at": "Sun, 23 Mar 2025 17:42:55 GMT",
+    "holidays": [],
+    "schedule": {
+        "2024-01-01": [
+            "M2",
+            "Physics"
+        ],
+        "2024-01-02": [
+            "Mech",
+            "M2"
+        ],...
     },
-    "updated_at": "Thu, 20 Mar 2025 06:22:14 GMT"
-}
-``` -->
+    "semester": "2nd",
+    "subjects": [
+        "Physics",
+        "M2",
+        "Mech"
+    ],
+    "uid": "XlbThzrdClgmR2zJOE6ywtOmbmj2",
+    "year": "1"
+  }
+  ```
+  ---
 
-<!-- ### 4️⃣ Planner Collection (`planner/{uid}/`)
+### 6️⃣ Set TimeTable
 
-Auto-generates **attendance planner** based on user data.
+- **Endpoint:** `GET /timetable/set`
+- **Body:**
+  ```json
+  {
+        "branch": "CSE",
+        "year": "1",
+        "timetable": {
+        "Monday": ["Civil", "CP", "M2","Physics","Lab"],
+        "Tuesday": ["Mech", "CP", "Lab","M2"],
+        "Wednesday": ["Lab", "Physics","Mech"],
+        "Thursday":["M2","Physics","Civil","CP"],
+        "Friday":["Physics","CP","Mech","Civil","M2"],
+        "Saturday":["Lab"]
+        }
+    }
+  ```
+- **Response:**
+  ```json
+  {
+    "message": "Timetable stored successfully"
+  }
+  ```
 
-```json
-{
-  "uid": "abc123",
-  "semester": 4,
-  "schedule": {
-    "Monday": ["Math", "Physics"],
-    "Tuesday": ["CS", "Math"],
-    "Wednesday": ["Physics", "CS"],
-    "Thursday": ["Math"],
-    "Friday": ["CS", "Physics"]
-  },
-  "holidays": ["2025-03-25", "2025-04-14"]
-}
-``` -->
+---
 
 ## 🔌 API Endpoints
 
@@ -342,54 +354,24 @@ Auto-generates **attendance planner** based on user data.
 | `POST` | `/attendance/mark`    | Mark attendance for a subject |
 | `GET`  | `/attendance/summary` | Get attendance insights       |
 
-📌 **Example Response (GET ********************************************`/attendance/summary`********************************************)**
-
-```json
-{
-    "subject_wise": {
-        "CS": {
-            "deficiency": 2,
-            "percentage": 0.0,
-            "present": 0,
-            "total": 3
-        },
-        "Math": {
-            "percentage": 100.0,
-            "present": 3,
-            "total": 3
-        },
-        "Physics": {
-            "deficiency": 1,
-            "percentage": 66.67,
-            "present": 2,
-            "total": 3
-        }
-    },
-    "updated_at": "Thu, 20 Mar 2025 06:22:14 GMT"
-}
-```
 
 ### 🟢 Planner (`routes/planner.py`)
 
 | Method | Endpoint            | Description                     |
 | ------ | ------------------- | ------------------------------- |
-| `GET`  | `/planner/generate` | Generate a subject-wise planner |
+| `POST`  | `/planner/generate-planner` | Generate a subject-wise planner |
+| `GET`  | `/planner/get-planner` | Gets the planner|
 
-📌 **Example Response**
+### 🟢 Timetable (`routes/timetable.py`)
 
-```json
-{
-  "Monday": ["Math", "Physics"],
-  "Tuesday": ["CS", "Math"],
-  "Wednesday": ["Physics", "CS"],
-  "Thursday": ["Math"],
-  "Friday": ["CS", "Physics"]
-}
-```
+| Method | Endpoint            | Description                     |
+| ------ | ------------------- | ------------------------------- |
+| `POST`  | `/timetable/set-timetable` | sets the time table |
+
 
 ## 🛡️ Token Authentication (`middlewares.py`)
 
-- **All API requests require a valid Firebase Auth token.**
+- **All API requests(excepts timetable ones) require a valid Firebase Auth token.**
 - **Add ********************************************`@token_required`******************************************** decorator to secure routes.**
 
 📌 **Example Usage**
