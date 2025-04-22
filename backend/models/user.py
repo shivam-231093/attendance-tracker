@@ -12,7 +12,7 @@ class User:
         return user_doc.to_dict() if user_doc.exists else None
 
     @staticmethod
-    def create_user(uid, email, name, roll_number, branch, year, semester, subjects, attendance_period):
+    def create_user(uid, email, name, roll_number, branch, year, semester, subjects, attendance_period,profileCompleted):
         """Create a new user documento_dictt"""
         user_data = {
             "uid": uid,
@@ -24,6 +24,7 @@ class User:
             "semester": semester,
             "subjects": subjects,  # List of subjects
             "attendance_period": attendance_period,
+            "profileCompleted":profileCompleted,
             "created_at": datetime.datetime.utcnow()
         }
         User.collection.document(uid).set(user_data)

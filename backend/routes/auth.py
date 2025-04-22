@@ -19,7 +19,11 @@ def create_or_update_user():
     year = data.get("year")
     semester = data.get("semester")
     subjects = data.get("subjects", [])
-    attendance_period = data.get("attendance_period", {})
+    attendance_period = {
+    "start": data.get("startDate"),
+    "end": "2026-05-31"
+  }
+    profileCompleted = data.get("profileCompleted")
 
     if not uid or not email:
         return jsonify({"error": "Missing required fields"}), 400
@@ -36,7 +40,8 @@ def create_or_update_user():
             "year": year or existing_user.get("year"),
             "semester": semester or existing_user.get("semester"),
             "subjects": subjects or existing_user.get("subjects"),
-            "attendance_period": attendance_period or existing_user.get("attendance_period")
+            "attendance_period": attendance_period or existing_user.get("attendance_period"),
+            "profileCompleted":profileCompleted
         }
         result = User.edit_user(uid, updated_data)
         return jsonify({"message": "User updated successfully", "uid": uid})

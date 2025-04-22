@@ -1,0 +1,87 @@
+/* Light Theme */
+.light {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+
+.lightactive{
+  color: gray;
+}
+
+.lightselect {
+  background-color: #f0f0f0;
+  color: #000000;
+  border: black 1px solid;
+}
+
+/* Dark Theme */
+.dark {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.darkselect {
+  background-color: #333333;
+  color: #ffffff;
+  border: white 1px solid;
+}
+
+.darkactive{
+  color: #d0cdd7;
+}
+
+/*Calender*/
+.calendar-container .react-calendar {
+  border-radius: 10px;
+  font-weight: 100;
+  font-size: 20px;
+  width: 100%;
+  overflow: hidden; 
+}
+
+.react-calendar__tile--active{
+  border-radius: 5px;
+}
+.react-calendar__tile--now{
+  border-radius: 5px;
+}
+
+abbr{
+text-decoration: none;
+}
+
+.darkcalender .react-calendar{
+  background-color: black;
+}
+
+.lightcalender .react-calendar{
+  background: white;
+}
+
+
+/* Font sizes for headings */
+.font-small-heading {
+  font-size: 1.25rem; /* Small heading */
+}
+
+.font-medium-heading {
+  font-size: 1.5rem; /* Medium heading */
+}
+
+.font-large-heading {
+  font-size: 2rem; /* Large heading */
+}
+
+/* Font sizes for text */
+.font-small-text {
+  font-size: 0.875rem; /* Small text */
+}
+
+.font-medium-text {
+  font-size: 1rem; /* Medium text */
+}
+
+.font-large-text {
+  font-size: 1.25rem; /* Large text */
+}
