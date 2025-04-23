@@ -21,6 +21,7 @@ firebase.json
 firestore.rules
 firestore.indexes.json
 .serviceAccountKey.json
+jec-hostel-firebase-adminsdk-fbsvc-d8c3967d08 copy.json
 
 # UV Project
 .uv/

@@ -25,7 +25,7 @@ const Profile = () => {
   const [availableSubjects, setAvailableSubjects] = useState([]);
 
   const branches = [
-    "Computer Science",
+    "CSE",
     "Information Technology",
     "Electronics & Communication",
     "Electrical Engineering",
@@ -36,10 +36,10 @@ const Profile = () => {
   ];
 
   const curriculum = {
-    "Computer Science": {
+    "CSE": {
       "1": {
         "1": ["Mathematics I", "Physics", "Introduction to Programming"],
-        "2": ["Mathematics II", "Electronics", "Environmental Science"],
+        "2": ["M2", "Physics", "CP","Civil","Mech"],
       },
       "2": {
         "3": ["Data Structures", "Computer Architecture", "Discrete Mathematics"],
@@ -97,14 +97,20 @@ const Profile = () => {
           profileCompleted: true
         })
       });
-      setProfileCompleted(true);
-      toast.success("Account Created Successfully")
-      navigate('/dashboard');
-
 
     } catch (error) {
       console.error("error while saving profile", error.message);
     }
+    try {
+      const response = await authFetch('/planner/generate-planner', {
+        method: 'POST',
+      });
+
+    } catch (error) {
+      console.error("error while saving profile", error.message);
+    }setProfileCompleted(true);
+    toast.success("Account Created Successfully")
+    navigate('/dashboard');
   };
 
 

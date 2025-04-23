@@ -1,6 +1,8 @@
 from middlewares.auth_middleware import token_required
 from flask import Blueprint, request, jsonify
 from models.user import User
+from models.planner import Planner
+
 
 
 auth_bp = Blueprint("auth", __name__)
@@ -44,8 +46,16 @@ def create_or_update_user():
             "profileCompleted":profileCompleted
         }
         result = User.edit_user(uid, updated_data)
-        return jsonify({"message": "User updated successfully", "uid": uid})
+        planner_data = Planner.generate_planner(uid)  # Assuming this function generates the planner
+        if "error" in planner_data:
+            return jsonify(planner_data), 400
+
+        return jsonify({"message": "User updated successfully", "uid": uid, "planner": planner_data})
 
     # Create new user
     new_user = User.create_user(uid, email, name, roll_number, branch, year, semester, subjects, attendance_period)
+    planner_data = Planner.generate_planner(uid)  # Assuming this function generates the planner
+    if "error" in planner_data:
+        return jsonify(planner_data), 400
+
     return jsonify({"message": "User created successfully", "user": new_user})

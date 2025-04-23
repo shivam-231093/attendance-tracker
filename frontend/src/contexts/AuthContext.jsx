@@ -25,7 +25,7 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [profileCompleted, setProfileCompleted] = useState(false);
 
-  const BASE_API_URL = "http://127.0.0.1:5000"; // 🔁 Replace with your backend URL
+  const BASE_API_URL = "https://attendencetracker.pythonanywhere.com/"; // 🔁 Replace with your backend URL
 
   const signUp = (email, password) =>
   createUserWithEmailAndPassword(auth, email, password);
@@ -90,6 +90,7 @@ export function AuthProvider({ children }) {
 
   const getBearerToken = async () => {
     if (auth.currentUser) {
+      console.log(auth.currentUser.getIdToken())
       return await auth.currentUser.getIdToken();
     }
     return null;
