@@ -177,6 +177,7 @@ export default function Overview() {
       </div>
       </motion.div>
 
+      {/* Inside the Overview.jsx, update the RiskSubjectsList call in the motion.div that contains "Subjects at Risk" */}
       <motion.div
       className={`${isDark ? "dark border border-gray-700" : "light border border-gray-200"} rounded-lg p-5 flex flex-col lg:w-1/2 shadow-sm`}
       initial={{ opacity: 0, y: 30 }}
@@ -186,7 +187,7 @@ export default function Overview() {
       <div className={`${headingFontClass} font-semibold`}>Subjects at Risk</div>
       <div className="text-gray-400 text-sm">Subjects below required attendance</div>
       <div className="mt-4 pt-2">
-      <RiskSubjectsList />
+      <RiskSubjectsList showOnlyAtRisk={true} />
       </div>
       </motion.div>
       </div>

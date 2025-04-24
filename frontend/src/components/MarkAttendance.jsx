@@ -18,7 +18,7 @@ const LoadingSpinner = () => (
 export default function MarkAttendance() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [attendanceData, setAttendanceData] = useState({});
-  const [plannedSubjects, setPlannedSubjects] = useState([]);
+  const [allSubjects, setAllSubjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [reset, setReset] = useState(false);
@@ -26,26 +26,32 @@ export default function MarkAttendance() {
   const { theme, font } = useContext(ThemeContext);
   const { authFetch } = useAuth();
 
-  // Fetch subjects for the current date when component mounts
+  // Fetch all subjects when component mounts
   useEffect(() => {
-    fetchPlannedSubjects(selectedDate);
+    fetchAllSubjects();
   }, []);
 
-  // Function to fetch planned subjects for a specific date
-  const fetchPlannedSubjects = async (date) => {
+  // Function to fetch all subjects from the planner
+  const fetchAllSubjects = async () => {
     setIsLoading(true);
     try {
-      const dateStr = date.toISOString().split("T")[0];
-      const res = await authFetch("/planner/get-planner");
+      // Use the planner API to get all subjects
+      const plannerData = await authFetch("/planner/get-planner");
 
-      const schedule = res.schedule || {};
-      const subjectsForDate = schedule[dateStr] || [];
+      // Extract subjects array from planner data
+      const subjects = plannerData.subjects || [];
 
-      setPlannedSubjects(subjectsForDate);
+      // Format subjects as needed for SubjectList
+      const formattedSubjects = subjects.map((subjectName, index) => ({
+        id: index.toString(),
+                                                                      name: subjectName
+      }));
+
+      setAllSubjects(formattedSubjects);
     } catch (err) {
-      console.error("Failed to fetch planner schedule", err);
-      toast.error("Could not load your schedule. Please try again.");
-      setPlannedSubjects([]);
+      console.error("Failed to fetch subjects from planner", err);
+      toast.error("Could not load your subjects. Please try again.");
+      setAllSubjects([]);
     } finally {
       setIsLoading(false);
     }
@@ -55,7 +61,6 @@ export default function MarkAttendance() {
   const handleDateChange = (date) => {
     setSelectedDate(date);
     setAttendanceData({}); // Reset attendance data when date changes
-    fetchPlannedSubjects(date);
   };
 
   // Update attendance status for a subject
@@ -167,17 +172,17 @@ export default function MarkAttendance() {
       <LoadingSpinner />
     ) : (
       <div className="p-2">
-      {plannedSubjects.length > 0 ? (
+      {allSubjects.length > 0 ? (
         <SubjectList
         onAttendanceSubmit={handleAttendanceSubmit}
         reset={reset}
-        plannedSubjects={plannedSubjects}
+        subjects={allSubjects}
         theme={theme}
         />
       ) : (
         <div className="text-center py-8 text-gray-500">
-        <p>No subjects planned for this day.</p>
-        <p className="mt-2 text-sm">Select another date or update your schedule.</p>
+        <p>No subjects found.</p>
+        <p className="mt-2 text-sm">Please update your profile with subjects.</p>
         </div>
       )}
       </div>

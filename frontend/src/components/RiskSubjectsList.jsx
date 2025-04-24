@@ -3,10 +3,13 @@ import Rsubject from './Rsubject';
 import { useAuth } from '../contexts/AuthContext';
 import { motion } from 'framer-motion';
 
-export default function RiskSubjectsList() {
+export default function RiskSubjectsList({ showOnlyAtRisk = false }) {
   const { currentUser, authFetch } = useAuth();
   const [subjects, setSubjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  // This is the attendance threshold for subjects at risk
+  const RISK_THRESHOLD = 75;
 
   useEffect(() => {
     const fetchSubjects = async () => {
@@ -22,10 +25,15 @@ export default function RiskSubjectsList() {
           attend: info.percentage,
         }));
 
-        // Sort by attendance ASCENDING
+        // Sort by attendance ASCENDING (lowest first)
         const sorted = allSubjects.sort((a, b) => a.attend - b.attend);
 
-        setSubjects(sorted);
+        // Filter subjects if showOnlyAtRisk is true
+        const filteredSubjects = showOnlyAtRisk
+        ? sorted.filter(subject => subject.attend < RISK_THRESHOLD)
+        : sorted;
+
+        setSubjects(filteredSubjects);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching subjects:", error.message);
@@ -34,7 +42,7 @@ export default function RiskSubjectsList() {
     };
 
     fetchSubjects();
-  }, [currentUser, authFetch]);
+  }, [currentUser, authFetch, showOnlyAtRisk]);
 
   if (isLoading) {
     return (
@@ -47,7 +55,7 @@ export default function RiskSubjectsList() {
   if (subjects.length === 0) {
     return (
       <div className="flex justify-center items-center h-32 text-gray-500">
-      No subjects available
+      {showOnlyAtRisk ? 'No subjects at risk' : 'No subjects available'}
       </div>
     );
   }

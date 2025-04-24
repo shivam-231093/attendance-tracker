@@ -77,7 +77,7 @@ export default function SubjectDashboard() {
 
     {/* Risk subjects list */}
     <div className="p-4">
-    <RiskSubjectsList />
+    <RiskSubjectsList showOnlyAtRisk={false} />
     </div>
     </div>
   );
