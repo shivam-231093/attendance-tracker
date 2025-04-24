@@ -13,6 +13,7 @@ import Profile from './components/Profile';
 import Settings from './components/Settings';
 import Dashboard from './components/Dashboard';
 import Header from './components/Header';
+import Schedule from './components/Schedule';
 import Reports from './components/Reports';
 import { PrivateRoute, ProfileGuard, MainLayout } from './components/PrivateRoute';
 import Logout from './components/LogOut';
@@ -41,6 +42,7 @@ const App = () => {
     <Route path='/settings' element={<Settings />} />
     <Route path='/markAttendance' element={<MarkAttendance />} />
     <Route path='/reports' element={<Reports />} />
+    <Route path='/schedule' element={<Schedule />} />
     <Route path='/logout' element={<Logout />} />
     </Route>
     </Route>
