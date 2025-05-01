@@ -33,9 +33,9 @@ class Planner:
         end_date = datetime.datetime.strptime(attendance_period["end"], "%Y-%m-%d")
 
         # 🔹 Fetch College Timetable from Firestore
-        college_timetable = Timetable.get_timetable(branch, year)
-        if "error" in college_timetable:
-            return {"error": "Timetable not found"}
+        # college_timetable = Timetable.get_timetable(branch, year)
+        # if "error" in college_timetable:
+        #     return {"error": "Timetable not found"}
 
 
 
@@ -43,7 +43,8 @@ class Planner:
         working_days = Planner.get_working_days(start_date, end_date, holidays)
 
         # Assign subjects to working days
-        schedule = Planner.assign_subjects_to_days(working_days, subjects,college_timetable)
+        # schedule = Planner.assign_subjects_to_days(working_days, subjects,college_timetable)
+        schedule = "Coming Soon"
 
         # Save planner to Firestore
         planner_data = {

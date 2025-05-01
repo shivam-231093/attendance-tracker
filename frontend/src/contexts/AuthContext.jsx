@@ -26,6 +26,7 @@ export function AuthProvider({ children }) {
   const [profileCompleted, setProfileCompleted] = useState(false);
 
   const BASE_API_URL = "https://attendencetracker.pythonanywhere.com/"; // 🔁 Replace with your backend URL
+//   const BASE_API_URL = "http://127.0.0.1:5000/"
 
   const signUp = (email, password) =>
   createUserWithEmailAndPassword(auth, email, password);
