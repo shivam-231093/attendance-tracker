@@ -113,7 +113,7 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
                 className={({ isActive }) =>
                 `pl-5 p-1.5 border-b flex link gap-5 ${
                     isActive
-                    ? "bg-blue-100 dark:bg-blue-900"
+                    ? "bg-blue-100 dark:bg-blue-900 active"
                     : ""
                 } ${
                     theme === "Dark"
