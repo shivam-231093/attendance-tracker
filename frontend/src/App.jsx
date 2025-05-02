@@ -17,10 +17,10 @@ import Schedule from './components/Schedule';
 import Reports from './components/Reports';
 import { PrivateRoute, ProfileGuard, MainLayout } from './components/PrivateRoute';
 import Logout from './components/LogOut';
-import Account from './components/Account';
-import Appearance from './components/Appearance';
-import Privacy from './components/Privacy';
-import Notification from './components/Notification';
+import Account from './components/Account'
+import Notification from './components/Notification'
+import Privacy from './components/Privacy'
+import Appearance from './components/Appearance'
 
 
 const App = () => {
@@ -44,13 +44,11 @@ const App = () => {
 
     {/* These routes are accessible only after profile completion */}
     <Route path='/dashboard' element={<Dashboard />} />
-    <Route path="/settings" element={<Settings />}>
-    <Route index element={<Navigate to="appearance" replace />} />
-    <Route path="account" element={<Account />} />
-    <Route path="notification" element={<Notification />} />
-    <Route path="appearance" element={<Appearance />} />
-    <Route path="privacy" element={<Privacy />} />
-    </Route>
+    <Route path='/Settings' element={<Settings activesection="Account" />}/>
+    <Route path='/Settings/Account' element={<Settings activesection="Account" />}/>
+    <Route path='/Settings/Notification' element={<Settings activesection="Notification" />}/>
+    <Route path='/Settings/Privacy' element={<Settings activesection="Privacy" />}/>
+    <Route path='/Settings/Appearance' element={<Settings activesection="Appearance" />}/>
     <Route path='/markAttendance' element={<MarkAttendance />} />
     <Route path='/reports' element={<Reports />} />
     <Route path='/schedule' element={<Schedule />} />

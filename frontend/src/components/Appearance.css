@@ -37,7 +37,7 @@
   font-weight: 100;
   font-size: 20px;
   width: 100%;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .react-calendar__tile--active{
@@ -48,7 +48,7 @@
 }
 
 abbr{
-text-decoration: none;
+  text-decoration: none;
 }
 
 .darkcalender .react-calendar{
@@ -84,4 +84,24 @@ text-decoration: none;
 
 .font-large-text {
   font-size: 1.25rem; /* Large text */
+}
+
+/* Sidebar */
+.hide {
+  display: none;
+}
+.link {
+  transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+.link:hover {
+  border-right: 4px solid white;
+  border-radius: 16px 7px 7px 16px;
+  transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+.active {
+  border-right: 4px solid #4d8bc6;
+  border-radius: 16px 7px 7px 16px;
+  color: #4d8bc6;
+  font-weight: bolder;
+  font-size: larger;
 }
