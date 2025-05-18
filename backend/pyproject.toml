@@ -1,0 +1,13 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Backend for the Attendence Tracker System"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "firebase-admin>=6.7.0",
+    "flask>=3.1.0",
+    "flask-cors>=5.0.1",
+    "g4f[all]>=0.4.8.6",
+    "python-dotenv>=1.0.1",
+]
